@@ -2,9 +2,16 @@ package chat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class MyChatApplication {
+public class MyChatApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(MyChatApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyChatApplication.class, args);
