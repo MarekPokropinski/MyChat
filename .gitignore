@@ -1,4 +1,4 @@
-/target/
+/MyChat_Backend/target/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -17,9 +17,47 @@
 *.ipr
 
 ### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+/MyChat_frontend/nbproject/private/
+/MyChat_frontend/build/
+/MyChat_frontend/nbbuild/
+/MyChat_frontend/dist/
+/MyChat_frontend/nbdist/
+/MyChat_frontend/.nb-gradle/
+
+# compiled output
+/MyChat_frontend/dist
+/MyChat_frontend/tmp
+/MyChat_frontend/out-tsc
+
+# dependencies
+/MyChat_frontend/node_modules
+
+# IDEs and editors
+/MyChat_frontend/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/MyChat_frontend/.sass-cache
+/MyChat_frontend/connect.lock
+/MyChat_frontend/coverage
+/MyChat_frontend/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/MyChat_frontend/typings
+
+# System Files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,15 @@
+<div>
+  <h2>Creating new user</h2>
+  <div>username:
+    <input [(ngModel)]='user.username' placeholder='username'>
+  </div>
+  <div>password:
+    <input [(ngModel)]='user.password' placeholder='password' type='password'>
+  </div>
+  <div>
+    <button (click)='handleRegisterButtonClick()'>register</button>
+  </div>
+  <div *ngIf='error'>
+    error: user already exists
+  </div>
+</div>
