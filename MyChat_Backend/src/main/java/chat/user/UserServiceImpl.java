@@ -8,8 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import chat.chatRoom.ChatRoom;
-import chat.chatRoom.ChatRoomNotFoundException;
 import chat.chatRoom.ChatRoomService;
+import chat.chatRoom.RoomException;
 import chat.roles.RolesService;
 
 @Service
@@ -29,6 +29,20 @@ public class UserServiceImpl implements UserService {
 		this.chatRoomService = chatRoomService;
 		this.passwordEncoder = passwordEncoder;
 		this.rolesService = rolesService;
+
+		try {
+			createNewUser(new User("admin", "admin", "place@holder.com"));
+			rolesService.setAuthority("admin", "ADMIN");
+			LOG.info("created new admin account");
+		} catch (UsernameNotAvailable e) {
+			LOG.info("admin user exists");
+		}
+		try {
+			User admin = getUserByUsername("admin").get();
+			chatRoomService.createChatRoom("public", admin);
+		} catch (RoomException e) {
+			LOG.info("public room exists");
+		}
 	}
 
 	@Override
@@ -37,25 +51,31 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void addUserToChatRoom(User user, String chatRoomName) throws ChatRoomNotFoundException {
+	public void addUserToChatRoom(User user, String chatRoomName) throws RoomException {
 		var chatRooms = user.getChatRooms();
 		ChatRoom chatRoom = chatRoomService.getChatRoomByName(chatRoomName)
-				.orElseThrow(() -> new ChatRoomNotFoundException(chatRoomName));
+				.orElseThrow(() -> RoomException.roomNotFound);
 
 		chatRooms.add(chatRoom);
 		userRepository.save(user);
 	}
 
 	@Override
-	public void createNewUser(User user) throws UsernameNotAvailable {
+	public User createNewUser(User user) throws UsernameNotAvailable {
 		String username = user.getUsername();
 		if (!userRepository.findByUsername(username).isPresent()) {
 			String encodedPassword = passwordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
 			LOG.debug(encodedPassword);
 			rolesService.setAuthority(username, "USER");
-			userRepository.save(user);
+			User createdUser = userRepository.save(user);
+			try {
+				addUserToChatRoom(createdUser, "public");
+			} catch (RoomException e) {
+				LOG.error("public channel does not exist");
+			}
 			LOG.info(String.format("Created new user with username: \"%s\"", username));
+			return createdUser;
 		} else {
 			LOG.warn(String.format("Couldn't create new user! Reason: user \"%s\" already exists.", username));
 			throw new UsernameNotAvailable(username);

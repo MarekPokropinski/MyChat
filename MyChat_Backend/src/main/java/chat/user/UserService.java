@@ -2,14 +2,14 @@ package chat.user;
 
 import java.util.Optional;
 
-import chat.chatRoom.ChatRoomNotFoundException;
+import chat.chatRoom.RoomException;
 
 public interface UserService {
 	Optional<User> getUserByUsername(String username);
 
-	void addUserToChatRoom(User user, String chatRoomName) throws ChatRoomNotFoundException;
+	void addUserToChatRoom(User user, String chatRoomName) throws RoomException;
 
-	void createNewUser(User user) throws UsernameNotAvailable;
+	User createNewUser(User user) throws UsernameNotAvailable;
 
 	Iterable<User> allUsers();
 }

@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureAuthenticationManagerBuilder(AuthenticationManagerBuilder authenticationManagerBuilder)
 			throws Exception {
-//		authenticationManagerBuilder.inMemoryAuthentication().withUser("marek").password("123").authorities("USER");
 		authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
 				.usersByUsernameQuery("select u.username, u.password, u.enabled from users u where u.username = ?")
 				.authoritiesByUsernameQuery("select username, authority from authorities where username = ?")

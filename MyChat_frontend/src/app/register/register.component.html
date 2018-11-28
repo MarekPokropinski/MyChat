@@ -1,15 +1,19 @@
 <div>
-  <h2>Creating new user</h2>
-  <div>username:
-    <input [(ngModel)]='user.username' placeholder='username'>
-  </div>
-  <div>password:
-    <input [(ngModel)]='user.password' placeholder='password' type='password'>
-  </div>
-  <div>
-    <button (click)='handleRegisterButtonClick()'>register</button>
-  </div>
-  <div *ngIf='error'>
-    error: user already exists
+  <h2 class="form_title">Creating new user</h2>
+  <div class="form_border">
+    <div class="form_text">username:</div>
+    <div class="form_textfields">
+      <input class="form_textfield" [(ngModel)]='user.username' placeholder='username'>
+    </div>
+    <div class="form_text">password:</div>
+    <div class="form_textfields">
+      <input class="form_textfield" [(ngModel)]='user.password' placeholder='password' type='password'>
+    </div>
+    <div class="form_buttons">
+      <button class="form_button" (click)='handleRegisterButtonClick()'>register</button>
+    </div>
+    <div *ngIf='error'>
+      error: user already exists
+    </div>
   </div>
 </div>

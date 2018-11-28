@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import chat.chatRoom.ChatRoomNotFoundException;
+import chat.chatRoom.RoomException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -56,7 +56,7 @@ public class UserController {
 
 	@PutMapping("/addToRoom")
 	void addUserToRoom(@RequestParam String username, @RequestParam String chatRoomName)
-			throws UserNotFoundException, ChatRoomNotFoundException {
+			throws UserNotFoundException, RoomException {
 		User user = userService.getUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
 		userService.addUserToChatRoom(user, chatRoomName);
 	}

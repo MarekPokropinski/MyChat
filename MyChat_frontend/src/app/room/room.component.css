@@ -1,0 +1,12 @@
+.scrollbar-cyan {
+    overflow-y: scroll;
+    height: 800px;    
+}
+
+.message {
+    background-color: #c6d400; 
+    width: 40%;
+    border-radius: 3px;
+    margin: 5px;
+    /* color: blue; */
+}

@@ -11,7 +11,12 @@ export class UserService {
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
   getUsersRooms() {
-    return this.http.get<string[]>(this.url + '/user/rooms?username=' + this.auth.getUsername(), { headers: this.auth.getAuthentication() });
+    const headers = this.auth.getAuthentication();
+    if (headers !== null) {
+      return this.http.get<string[]>(this.url + '/user/rooms?username=' + this.auth.getUsername(), { headers: headers });
+    } else {
+      return null;
+    }
   }
   getUsername(): string {
     return this.auth.getUsername();

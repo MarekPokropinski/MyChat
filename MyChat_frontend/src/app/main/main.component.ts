@@ -21,4 +21,7 @@ export class MainComponent implements OnInit {
         this.router.navigateByUrl('/');
       })
   }
+  navigateToRoom(room: string): void {
+    this.router.navigateByUrl(`/room/${room}`);
+  }
 }

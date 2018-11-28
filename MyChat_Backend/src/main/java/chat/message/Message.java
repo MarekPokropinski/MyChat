@@ -17,6 +17,10 @@ public class Message extends BaseModel {
 	private String content;
 	private LocalDate date;
 
+	public Message() {
+
+	}
+
 	public Message(User author, String content, LocalDate date) {
 		this.author = author;
 		this.content = content;
@@ -46,4 +50,10 @@ public class Message extends BaseModel {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("[%s] %s: %s", date, author.getUsername(), content);
+	}
+
 }
